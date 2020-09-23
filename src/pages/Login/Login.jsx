@@ -1,7 +1,9 @@
 import React from 'react';
 import { Avatar, Container, makeStyles, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { useDispatch } from 'react-redux';
 import { LoginForm } from '../../components';
+import { showError } from '../../features/noti/notiSlice';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,6 +20,13 @@ const useStyles = makeStyles(theme => ({
 
 const Login = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const submit = data => {
+    console.log(data);
+    dispatch(showError('я не знаю, кто ты'));
+  };
+
   return (
     <Container maxWidth="sm" className={classes.root}>
       <Avatar className={classes.avatar}>
@@ -26,7 +35,7 @@ const Login = () => {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <LoginForm />
+      <LoginForm submit={submit} />
     </Container>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import PropTypes from 'prop-types';
 import { Box, Button, makeStyles, TextField, Typography } from '@material-ui/core';
 import produce from 'immer';
 import PinItems from './PinItems';
@@ -41,12 +42,13 @@ const reducer = (state, action) => {
   }
 };
 
-const LoginForm = () => {
+const LoginForm = ({ submit }) => {
   const classes = useStyles();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const onSubmit = e => {
     e.preventDefault();
+    submit(state);
   };
 
   const cardChange = ({ target }) => {
@@ -98,6 +100,10 @@ const LoginForm = () => {
       </Button>
     </form>
   );
+};
+
+LoginForm.propTypes = {
+  submit: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
