@@ -4,6 +4,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useDispatch } from 'react-redux';
 import { LoginForm } from '../../components';
 import { showError } from '../../features/noti/notiSlice';
+import { getUser } from '../../features/user/userSlice';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,8 +24,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const submit = data => {
-    console.log(data);
-    dispatch(showError('я не знаю, кто ты'));
+    dispatch(getUser(data));
   };
 
   return (

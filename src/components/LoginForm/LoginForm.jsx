@@ -48,7 +48,15 @@ const LoginForm = ({ submit }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    submit(state);
+    submit({
+      card: state.card.replace(/\D/g, ''),
+      pin: Object.entries(state).reduce((sum, [key, value], index) => {
+        if (key === `pin${index}`) {
+          sum += value;
+        }
+        return sum;
+      }, ''),
+    });
   };
 
   const cardChange = ({ target }) => {

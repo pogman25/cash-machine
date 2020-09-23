@@ -29,6 +29,7 @@ const PinItems = ({ index, value, onSelect }) => {
       name={`pin${index + 1}`}
       value={value}
       onChange={onSelect}
+      required
     >
       <MenuItem value={0}>0</MenuItem>
       <MenuItem value={1}>1</MenuItem>
