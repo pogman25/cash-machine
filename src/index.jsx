@@ -10,16 +10,14 @@ import * as serviceWorker from './serviceWorker';
 const theme = createMuiTheme();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ThemeProvider>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ThemeProvider>
+  </Provider>,
   document.getElementById('root'),
 );
 
