@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import Axios from 'axios';
 import { showError } from '../noti/notiSlice';
 
+const emptyUser = { id: -1, name: '', avatar: '', card: '', amount: -1, pin: '' };
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    profile: { id: -1, name: '', avatar: '', card: '', amount: -1, pin: '' },
+    profile: emptyUser,
     isFetching: false,
   },
   reducers: {
@@ -19,10 +21,16 @@ export const userSlice = createSlice({
     [showError]: state => {
       state.isFetching = false;
     },
+    resetProfile: state => {
+      state.profile = emptyUser;
+    },
+    getCashSuccess: (state, action) => {
+      state.profile.amount -= action.payload;
+    },
   },
 });
 
-export const { getUsersStart, getUsersSuccess } = userSlice.actions;
+export const { getUsersStart, getUsersSuccess, resetProfile } = userSlice.actions;
 
 export const getUser = ({ pin, card }) => async dispatch => {
   dispatch(getUsersStart());
@@ -39,6 +47,25 @@ export const getUser = ({ pin, card }) => async dispatch => {
     }
   } catch (err) {
     dispatch(showError('Internal server error'));
+  }
+};
+
+export const getCashRequest = amount => async (dispatch, getState) => {
+  const { profile } = getState().user;
+
+  try {
+    const { status, data } = await Axios.put(`http://localhost:3004/clients/${profile.id}`, {
+      ...profile,
+      amount: profile.amount - amount,
+    });
+    if (status === 200) {
+      dispatch(getUsersSuccess(data));
+    } else {
+      dispatch(showError("Somthing happens, I don't know"));
+    }
+  } catch (e) {
+    console.log(e);
+    dispatch(showError('Internal server error or somthing else'));
   }
 };
 

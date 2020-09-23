@@ -1,10 +1,10 @@
 import React from 'react';
 import { Avatar, Container, makeStyles, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { LoginForm } from '../../components';
-import { showError } from '../../features/noti/notiSlice';
-import { getUser } from '../../features/user/userSlice';
+import { getUser, selectUser } from '../../features/user/userSlice';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,13 +22,19 @@ const useStyles = makeStyles(theme => ({
 const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
+  const user = useSelector(selectUser);
+
+  if (user.id >= 0) {
+    history.push('/card-holder');
+  }
 
   const submit = data => {
     dispatch(getUser(data));
   };
 
   return (
-    <Container maxWidth="sm" className={classes.root}>
+    <>
       <Avatar className={classes.avatar}>
         <LockOutlinedIcon />
       </Avatar>
@@ -36,7 +42,7 @@ const Login = () => {
         Sign in
       </Typography>
       <LoginForm submit={submit} />
-    </Container>
+    </>
   );
 };
 
