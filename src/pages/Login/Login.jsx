@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Container, makeStyles, Typography } from '@material-ui/core';
+import { Avatar, makeStyles, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
