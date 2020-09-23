@@ -42,7 +42,7 @@ const reducer = (state, action) => {
   }
 };
 
-const LoginForm = ({ submit }) => {
+const LoginForm = ({ submit, isFetching }) => {
   const classes = useStyles();
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -103,6 +103,7 @@ const LoginForm = ({ submit }) => {
         size="large"
         color="primary"
         className={classes.submit}
+        disabled={isFetching}
       >
         Enter
       </Button>
@@ -112,6 +113,7 @@ const LoginForm = ({ submit }) => {
 
 LoginForm.propTypes = {
   submit: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 export default LoginForm;

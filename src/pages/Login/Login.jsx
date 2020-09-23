@@ -4,7 +4,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { LoginForm } from '../../components';
-import { getUser, selectUser } from '../../features/user/userSlice';
+import { getUser, selectIsFetching, selectUser } from '../../features/user/userSlice';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,6 +24,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(selectUser);
+  const isFetching = useSelector(selectIsFetching);
+
 
   if (user.id >= 0) {
     history.push('/card-holder');
@@ -41,7 +43,7 @@ const Login = () => {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <LoginForm submit={submit} />
+      <LoginForm submit={submit} isFetching={isFetching} />
     </>
   );
 };

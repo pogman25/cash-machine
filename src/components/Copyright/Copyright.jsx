@@ -8,9 +8,8 @@ const Copyright = () => {
         {'Copyright © '}
         <Link color="inherit" href="https://github.com/pogman25">
           PogAlex
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
+        </Link>
+        {` ${new Date().getFullYear()}.`}
       </Typography>
     </Box>
   );

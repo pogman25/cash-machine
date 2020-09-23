@@ -11,12 +11,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { showError } from '../../features/noti/notiSlice';
-import { getCashRequest, selectUser } from '../../features/user/userSlice';
+import { getCashRequest, selectIsFetching, selectUser } from '../../features/user/userSlice';
 
 const GetCash = () => {
   const dispatch = useDispatch();
   const [cash, setCash] = useState('');
   const user = useSelector(selectUser);
+  const isFetching = useSelector(selectIsFetching);
 
   if (user.id === -1) {
     return <Redirect to="/" />;
@@ -58,7 +59,13 @@ const GetCash = () => {
               value={cash}
               onChange={onChange}
             />
-            <Button type="submit" fullWidth variant="contained" color="primary">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              disabled={isFetching}
+            >
               Get cash
             </Button>
           </form>
@@ -66,7 +73,6 @@ const GetCash = () => {
       </Card>
       <Box display="flex" justifyContent="space-between" width={200} marginTop={4}>
         <Link to="/card-holder">Cancel</Link>
-        <Link to="/get-cash">Get cash</Link>
       </Box>
     </>
   );

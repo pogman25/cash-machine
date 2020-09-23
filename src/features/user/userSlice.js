@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import Axios from 'axios';
 import { showError } from '../noti/notiSlice';
@@ -64,11 +65,11 @@ export const getCashRequest = amount => async (dispatch, getState) => {
       dispatch(showError("Somthing happens, I don't know"));
     }
   } catch (e) {
-    console.log(e);
     dispatch(showError('Internal server error or somthing else'));
   }
 };
 
 export const selectUser = state => state.user.profile;
+export const selectIsFetching = state => state.user.isFetching;
 
 export default userSlice.reducer;
