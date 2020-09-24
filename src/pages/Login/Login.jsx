@@ -26,7 +26,6 @@ const Login = () => {
   const user = useSelector(selectUser);
   const isFetching = useSelector(selectIsFetching);
 
-
   if (user.id >= 0) {
     history.push('/card-holder');
   }

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, makeStyles, TextField, Typography } from '@material-ui/core';
@@ -87,6 +88,8 @@ const LoginForm = ({ submit, isFetching }) => {
           <Box display="flex">
             {Array.from(Array(4)).map((_, index) => (
               <PinItems
+                // yes, it's not good, but in this case it may be
+                // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 index={index}
                 value={state[`pin${index + 1}`]}
